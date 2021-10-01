@@ -37,21 +37,19 @@ contract FortressOwner {
                 if (stakeOwner == owner) {
                     balance = balance + 1;
                 }
-            } catch {
+            } catch {}
                 try roeWrapper.ownerOf(ids[i]) returns (
                     address wrappedFortressOwner
                 ) {
                     if (wrappedFortressOwner == owner) {
                         balance = balance + 1;
                     }
-                } catch {
-                    try roe.getStaker(ids[i]) returns (address roeOwner) {
+                } catch {}
+                    try roe.getFortress(bytes32(ids[i])) returns (bytes16 name, address roeOwner, int256 x, int256 y, uint256 wins) {
                         if (roeOwner == owner) {
                             balance = balance + 1;
                         }
                     } catch {}
-                }
-            }
         }
         return balance;
     }
