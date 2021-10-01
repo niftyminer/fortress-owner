@@ -1,0 +1,33 @@
+{
+  "name": "fortress-owner",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "hardhat test",
+    "run.testnet": "hardhat node",
+    "compile.contract": "hardhat compile",
+    "deploy.testnet": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy.rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
+    "deploy.mainnet": "hardhat run scripts/deploy.ts --network mainnet",
+    "deploy.goerli": "hardhat run scripts/deploy.ts --network goerli"
+  },
+  "keywords": [],
+  "author": "niftyminer",
+  "license": "",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.0",
+    "@nomiclabs/hardhat-etherscan": "^2.1.6",
+    "@nomiclabs/hardhat-waffle": "^2.0.0",
+    "@openzeppelin/contracts": "^4.0.0",
+    "chai": "^4.2.0",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "^5.1.0",
+    "hardhat": "^2.1.2",
+    "husky": "^4.2.5",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}
