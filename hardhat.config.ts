@@ -22,7 +22,12 @@ const config: HardhatUserConfig = {
   solidity: "0.8.7",
   networks: {
     hardhat: {
-      chainId: 1337,
+      // chainId: 1337,
+      forking: {
+        enabled: true,
+        url: "https://eth-mainnet.alchemyapi.io/v2/GxGKUORrt3boNTICx7LmAHBjRK7EjMF0",
+        blockNumber: 13351851,
+      },
     },
     rinkeby: {
       url: rinkebyNodeUrl,
@@ -47,6 +52,9 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: "FYNDQQFCC29GGB2HGUY5TZDAQYMS6AAFD8",
+  },
+  mocha: {
+    timeout: 2000000,
   },
 };
 

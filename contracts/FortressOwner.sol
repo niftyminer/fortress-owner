@@ -527,40 +527,36 @@ contract FortressOwner {
             91503857434928107464933478837927996787282725948109873819531757145955849295218
         ];
         IERC721 roeWrapper = IERC721(
-            0x1D20A51F088492A0f1C57f047A9e30c9aB5C07Ea
+            0x8479277AaCFF4663Aa4241085a7E27934A0b0840
         );
         IRoE roe = IRoE(0x0716d44d5991b15256A2de5769e1376D569Bba7C);
         IGold gold = IGold(0x4F9dEcDF87428AED7C1dAdE33B5f31f58BA0e3DA);
-        address NULL_ADDRESS = 0x0000000000000000000000000000000000000000;
 
         uint16 balance = 0;
         for (uint16 i = 0; i < ids.length; i++) {
-            address stakeOwner = gold.getStaker(ids[i]);
-            if (stakeOwner != NULL_ADDRESS) {
+            try gold.getStaker(ids[i]) returns (address stakeOwner) {
                 if (stakeOwner == owner) {
                     balance = balance + 1;
                 }
-            } else {
-                try roeWrapper.ownerOf(ids[i]) returns (
-                    address wrappedFortressOwner
-                ) {
-                    if (wrappedFortressOwner == owner) {
-                        balance = balance + 1;
-                    }
-                } catch {
-                    try roe.getFortress(bytes32(ids[i])) returns (
-                        bytes16 name,
-                        address roeOwner,
-                        int256 x,
-                        int256 y,
-                        uint256 wins
-                    ) {
-                        if (roeOwner == owner) {
-                            balance = balance + 1;
-                        }
-                    } catch {}
+            } catch {}
+            try roeWrapper.ownerOf(ids[i]) returns (
+                address wrappedFortressOwner
+            ) {
+                if (wrappedFortressOwner == owner) {
+                    balance = balance + 1;
                 }
-            }
+            } catch {}
+            try roe.getFortress(bytes32(ids[i])) returns (
+                bytes16 name,
+                address roeOwner,
+                int256 x,
+                int256 y,
+                uint256 wins
+            ) {
+                if (roeOwner == owner) {
+                    balance = balance + 1;
+                }
+            } catch {}
         }
         return balance;
     }
